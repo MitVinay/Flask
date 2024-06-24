@@ -1,0 +1,23 @@
+
+
+<!--
+   {} This symbol confirms the usage of jinja.
+   The below code tells that we inherit all the code of layout.
+-->
+{% extends "layout.html" %}
+
+{% block content %}
+<h3>Contents:</h3>
+<ul>
+   <li>Home</li>
+   <li><a href = {{url_for('about')}} target="_blank">About</a></li>
+   <li><a href = {{url_for('employees')}} target="_blank">Employees</a></li>
+   <ul>
+      <li><a href = {{url_for('managers')}} target="_blank">Managers</a></li>
+   </ul>
+   <li>Careers</li>
+   <li>Contact Us</li>
+</ul>
+{% endblock content %}
+
+
