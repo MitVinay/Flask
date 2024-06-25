@@ -9,8 +9,13 @@
 <body>
     <h1>Welcome to the {{title}} Page!</h1>
 
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}    
+    {% endwith %}
     {% block content %}
     {% endblock content %}
-    
+
 </body>
 </html>
