@@ -45,6 +45,9 @@ def login():
             flash("User Successfully logged in.")
             return redirect(url_for("home"))
 
+        else:
+            flash("INCORRECT EMAIL OR PASSWORD")
+            
     return render_template("login.html", title = "Login", form = form)
 
 
