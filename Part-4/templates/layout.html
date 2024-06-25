@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Welcome to the {{title}} Page!</h1>
-
+    <!--This stored all the messages in the flash-->
     {% with messages = get_flashed_messages() %}
         {% for message in messages %}
             <div>{{ message }}</div>
