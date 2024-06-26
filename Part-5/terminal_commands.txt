@@ -1,0 +1,161 @@
+(new_env) Vinays-MBP:Part-5 vinaymittal$ python
+Python 3.11.5 (main, Sep 11 2023, 08:31:25) [Clang 14.0.6 ] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os
+>>> os.listdir()
+['.DS_Store', '__pycache__', 'notes.py', 'db_crud_demo.py', 'instance', 'Session 5 - notes.pdf']
+>>> from db_crud_demo import app, db
+
+
+
+Explanation: create_all() is use to create a database in Sqlite, on running we see a error
+Saying we need app.app_context()
+
+>>> db.create_all()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 900, in create_all
+    self._call_for_binds(bind_key, "create_all")
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 871, in _call_for_binds
+    engine = self.engines[key]
+             ^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 687, in engines
+    app = current_app._get_current_object()  # type: ignore[attr-defined]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/werkzeug/local.py", line 519, in _get_current_object
+    raise RuntimeError(unbound_message) from None
+RuntimeError: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+
+
+Explanation: We will create a flask object of app_context()
+>>> app_context = app.app_context()
+>>> app_context
+<flask.ctx.AppContext object at 0x10767e110>
+
+Explanation: This push helps to get into app_context()
+>>> app_context.push()
+
+Now we can use create_all function, this will create a instance in the working directory containing 
+employees_db.db database
+>>> db.create_all()
+>>> exit()
+(new_env) Vinays-MBP:Part-5 vinaymittal$ history > terminal_commands.txt
+(new_env) Vinays-MBP:Part-5 vinaymittal$ 
+
+
+
+
+### How to add data 
+
+(new_env) Vinays-MBP:Flask vinaymittal$ history -c
+(new_env) Vinays-MBP:Flask vinaymittal$ python
+Python 3.11.5 (main, Sep 11 2023, 08:31:25) [Clang 14.0.6 ] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os
+>>> os.listdir()
+['flask-course-master', '.DS_Store', 'Part-3', 'Part-4', 'Part-5', 'Part-2', 'new_env', 'Part-1', '.git']
+>>> exit()
+(new_env) Vinays-MBP:Flask vinaymittal$ cd Part-5
+(new_env) Vinays-MBP:Part-5 vinaymittal$ python
+Python 3.11.5 (main, Sep 11 2023, 08:31:25) [Clang 14.0.6 ] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import os
+>>> os.listdir()
+['.DS_Store', '__pycache__', 'notes.py', 'db_crud_demo.py', 'instance', 'Session 5 - notes.pdf']
+>>> from db_crud_demo import app, db
+>>> db.create_all()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 900, in create_all
+    self._call_for_binds(bind_key, "create_all")
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 871, in _call_for_binds
+    engine = self.engines[key]
+             ^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 687, in engines
+    app = current_app._get_current_object()  # type: ignore[attr-defined]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/werkzeug/local.py", line 519, in _get_current_object
+    raise RuntimeError(unbound_message) from None
+RuntimeError: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+>>> app_context = app.app_context()
+>>> app_context
+<flask.ctx.AppContext object at 0x10767e110>
+>>> app_context.push()
+>>> db.create_all()
+>>> exit()
+(new_env) Vinays-MBP:Part-5 vinaymittal$ history > terminal_commands.txt
+(new_env) Vinays-MBP:Part-5 vinaymittal$ python
+Python 3.11.5 (main, Sep 11 2023, 08:31:25) [Clang 14.0.6 ] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> michael = Employee(name = 'Michael', age=42, email="mc@gmail.com'
+  File "<stdin>", line 1
+    michael = Employee(name = 'Michael', age=42, email="mc@gmail.com'
+                                                       ^
+SyntaxError: unterminated string literal (detected at line 1)
+>>> from db_crud_demo import Employee
+>>> michael = Employee(name = 'Michael', age=42, email="mc@gmail.com')
+  File "<stdin>", line 1
+    michael = Employee(name = 'Michael', age=42, email="mc@gmail.com')
+                                                       ^
+SyntaxError: unterminated string literal (detected at line 1)
+>>> michael = Employee(name = 'Michael', age=42, email="mc@gmail.com")
+>>> michael
+<Employee (transient 4344125968)>
+>>> michael
+<Employee (transient 4344125968)>
+>>> michael
+<Employee (transient 4344125968)>
+>>> from db_crud_demo import Employee
+>>> michael
+<Employee (transient 4344125968)>
+>>> exit()
+(new_env) Vinays-MBP:Part-5 vinaymittal$ python
+Python 3.11.5 (main, Sep 11 2023, 08:31:25) [Clang 14.0.6 ] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from db_crud_demo import *
+>>> michael = Employee(name = 'Michael', age=42, email="mc@gmail.com")
+>>> michael 
+Employee(Michael, 42, mc@gmail.com)
+>>> dwight = Employee(name = 'Dwight', age=35, email="dw@gmail.com")
+>>> db.session.add(michael)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 378, in add
+    return self._proxied.add(instance, _warn=_warn)
+           ^^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 197, in _proxied
+    return self.registry()
+           ^^^^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/sqlalchemy/util/_collections.py", line 632, in __call__
+    key = self.scopefunc()
+          ^^^^^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/session.py", line 111, in _app_ctx_id
+    return id(app_ctx._get_current_object())  # type: ignore[attr-defined]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/werkzeug/local.py", line 519, in _get_current_object
+    raise RuntimeError(unbound_message) from None
+RuntimeError: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+>>> app_context = app.app_context()
+>>> app_context.push()
+>>> db.session.add(michael)
+
+This to commit() to dsiplay the changes in the sqlite
+>>> db.session.commit()
+>>> 
+
+>>> jim = Employee(name = 'Jim', age=60, email="jm@gmail.com")
+>>> db.session.add_all([dwight, jim])
+>>> db.session.commit()
+>>> 
