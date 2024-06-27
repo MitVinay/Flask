@@ -7,12 +7,14 @@
     <title>{title}</title>
 </head>
 <body>
-    <h1>Welcome to the {title} Page!</h1>
+    <h1>Welcome to the {{ title }} Page!</h1>
     {% with messages = get_flashed_messages() %}
         {% for message in messages %}
             <div>{{ message }}</div>
         {% endfor %}
     {% endwith %}
+    <br>
+    
     {% block content %}
     {% endblock content %}
     
