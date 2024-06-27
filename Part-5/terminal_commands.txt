@@ -159,3 +159,46 @@ This to commit() to dsiplay the changes in the sqlite
 >>> db.session.add_all([dwight, jim])
 >>> db.session.commit()
 >>> 
+
+
+List all the rows
+
+>>> employees = Employee.query.all()
+>>> employees
+[Employee(Michael, 42, mc@gmail.com), Employee(Dwight, 35, dw@gmail.com), Employee(Jim, 60, jm@gmail.com)]
+>>> 
+
+>>> mike = employees[0]
+>>> mike.email
+'mc@gmail.com'
+>>> mike.name
+'Michael'
+>>> 
+
+Collect informatio
+all() to collect all the instances that satisfy the condition
+>>> Employee.query.filter_by(name='Jim').all()
+[Employee(Jim, 60, jm@gmail.com)]
+>>> 
+
+
+This is collect information based on id.
+>>> db.session.get(Employee, 1)
+Employee(Michael, 42, mc@gmail.com)
+>>> 
+
+How to make changes in a particular row and 
+commit is to make the changes in the database.
+
+>>> mike.age = 50
+>>> mike
+Employee(Michael, 50, mc@gmail.com)
+>>> db.session.commit()
+>>> 
+
+How to delete a row
+>> db.session.delete(jim)
+>>> db.session.commit()
+
+end the context
+app_context.pop()
