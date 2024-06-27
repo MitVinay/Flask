@@ -1,0 +1,7 @@
+client session: When the entire data(cookie) is sent from the server to the
+client.
+
+Server Session: When only the session id is sent from the server to the client
+
+By default Flask is the client session, We can change the flask setting from 
+client session to server session using some library.

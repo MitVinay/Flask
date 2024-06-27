@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form action = "", method="post">
+    <!--Crsf token-->
+    {{ form.hidden_tag() }}
+    <div>
+        {{form.username.label}}
+        {{form.username}}
+            {% if form.username.error %}
+                {% for error in form.username.error %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+    </div>
+    <br>
+    <div>
+        {{form.password.label}}
+        {{form.password}}
+            {% if form.password.error %}
+                {% for error in form.password.error %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+    </div>
+    <br>
+    <div>
+        {{form.submit()}}
+    </div>
+    <br>
+    <div>
+        <p>Redirect to Homepage?<a href="{{ url_for('home') }}">Home</a></p>
+    </div>
+
+
+{% endblock content %}
+

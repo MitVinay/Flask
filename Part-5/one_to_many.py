@@ -27,12 +27,11 @@ class Team(db.Model):
     team = db.Column(db.String(50), nullable=False, unique=True)
     state = db.Column(db.String(50), nullable=False)
     # this member is not a column, backref= team will 
-    # create an imaginary column name team in player column
+    # create an imaginary column name team in player column and store instance of the Team table
     members = db.relationship("Player", backref="team")
 
     def __repr__(self):
         return f"Team({self.team}, {self.state})"
-
 
 class Player(db.Model):
     __tablename__ = "players"
@@ -43,6 +42,8 @@ class Player(db.Model):
     
     def __repr__(self):
         return f"Player({self.name}, {self.nationality})"
+    
+
 
 if __name__ == "__main__":
     app.run(debug=True)

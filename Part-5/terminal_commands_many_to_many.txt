@@ -1,0 +1,39 @@
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+>>> app_ct = app.app_context()
+>>> app_ct.push()
+>>> db.create_all()
+>>> steve = Customer(name= 'Steve', email='steve@mail.com')
+>>> steve
+Customer(Steve, steve@mail.com)
+>>> db.session.add(steve)
+>>> db.session.commit()
+>>> tony = Customer(name= 'Tony', email='tony@mail.com')
+>>> peter = Customer(name= 'Peter', email='peter@mail.com')
+>>> matt = Customer(name= 'Matt', email='matt@mail.com')
+>>> bowl = Product(product= 'Bowl', price=5)
+>>> plate = Product(product='plate', price=8)
+>>> knife = Product(product= 'Knife', price=3)
+>>> scissors = Product(product='Scissors', price=2.5)
+>>> cup = Product(product= 'Cup', price=1.5)
+>>> db.session.add_all([tony, peter, matt, bowl, plate, knife, scissors, cup])
+>>> db.session.commit()
+>>> steve.items
+[]
+>>> cup.owners
+[]
+>>> steve.items.append(cup)
+>>> steve.items
+[Product(Cup, 1.5)]
+>>> steve.items.extend([bowl, plate])
+>>> db.session.commit()
+>>> tony.items.extend([bowl, cup, knife])
+>>> db.session.commit()
+>>> cup.owner
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Product' object has no attribute 'owner'. Did you mean: 'owners'?
+>>> cup.owners
+[Customer(Steve, steve@mail.com), Customer(Tony, tony@mail.com)]
+>>> 
