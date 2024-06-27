@@ -25,6 +25,8 @@ This is the builtin method of the class, So we are modifying  the
 output.
 Intially if we just run class it displays its memory location with the
 given below we are improving the ouput.
+
+Using SQLAlchemy, We use model to create table in database.
 """
 
 class Employee(db.Model):

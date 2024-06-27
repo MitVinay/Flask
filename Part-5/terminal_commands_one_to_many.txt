@@ -1,0 +1,83 @@
+>>> import os
+>>> os.listdir()
+['one_to_many.py', '.DS_Store', 'terminal_commands.txt', '__pycache__', 'notes.py', 'db_crud_demo.py', 'instance', 'Session 5 - notes.pdf']
+>>> from one_to_many import app, db
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/Part-5/one_to_many.py", line 47
+    if __name__ = "__main__":
+       ^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Maybe you meant '==' or ':=' instead of '='?
+>>> from one_to_many import app, db
+>>> from one_to_many import Team, Player
+>>> app_context = app.app_context()
+>>> app_context.push()
+>>> create_all()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'create_all' is not defined
+>>> db.create_all()
+>>> ck = Team(team= 'CSK', state='Tamil Nadu')
+>>> rcb = Team(team= "RCB"', state='Karnataka')
+  File "<stdin>", line 1
+    rcb = Team(team= "RCB"', state='Karnataka')
+                                             ^
+SyntaxError: unterminated string literal (detected at line 1)
+>>> rcb = Team(team= "RCB", state='Karnataka')
+>>> mi = Team(team= 'MI', state= 'Maharashtra')
+>>> db.session.add_all([csk, rcb])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'csk' is not defined. Did you mean: 'ck'?
+>>> db.session.add_all([ck, rcb])
+>>> db.commit()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/vinaymittal/Monash/Summer_Vacation/GitHub/Flask/new_env/lib/python3.11/site-packages/flask_sqlalchemy/extension.py", line 1008, in __getattr__
+    raise AttributeError(name)
+AttributeError: commit
+>>> db.session.commit()
+>>> msd = Player(name= 'MS Dhoni', nationality= 'Indian', team=ck)
+>>> msd
+Player(MS Dhoni, Indian)
+>>> db.session.add_all([mi, msd])
+>>> db.session.commit()
+>>> moeen = Player(name= 'Moeen Ali', nationality='English', team=csk)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'csk' is not defined. Did you mean: 'ck'?
+>>> moeen = Player(name= 'Moeen Ali', nationality='English', team=ck)
+>>> jadeja = Player(name= 'Ravindra Jadeja', nationality='Indian', team=ck)>>> kohli = Player(name= 'Virat Kohli',nationality='Indian', team=rcb)
+>>> faf = Player(name='FAF Du Plesis', nationality='South African', team=rcb)
+>>> siraj = Player(name= 'Siraj Mohammed', nationality= 'Indian', team=rcb)>>> rohit = Player(name= 'Rohit Sharma', nationality='Indian', team=mi)
+>>> db.session.add_all([moeen, jadeja, kohli, faf, rohit, tim])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'tim' is not defined
+>>> db.session.add_all([moeen, jadeja, kohli, faf, rohit])
+>>> db.session.commit()
+<stdin>:1: SAWarning: Object of type <Player> not in session, add operation along 'Team.members' will not proceed
+>>> db.session.add_all([moeen, jadeja, kohli, faf, rohit])
+>>> db.session.commit()
+>>> csk_team =  Team.query.first()
+>>> csk_team.members
+[Player(MS Dhoni, Indian), Player(Moeen Ali, English), Player(Ravindra Jadeja, Indian)]
+>>> for pl in csk_team.members:
+... print(f"{pl.name} is an {pl.nationality} national")
+  File "<stdin>", line 2
+    print(f"{pl.name} is an {pl.nationality} national")
+    ^
+IndentationError: expected an indented block after 'for' statement on line 1
+>>> for pl in csk_team.members:
+...     print(f"{pl.name} is an {pl.nationality} national")
+... 
+MS Dhoni is an Indian national
+Moeen Ali is an English national
+Ravindra Jadeja is an Indian national
+>>> msd_player = csk_team.members[0]
+>>> msd_player
+Player(MS Dhoni, Indian)
+>>> msd_player.team
+Team(CSK, Tamil Nadu)
+>>> app_context.pop()
+>>> exit()

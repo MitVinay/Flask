@@ -1,0 +1,13 @@
+ck = Team(team= 'CSK', state='Tamil Nadu') I
+rcb = Team(team= "RCB", state='Karnataka')
+mi = Team(team= 'MI', state= 'Maharashtra')
+msd = Player(name= 'MS Dhoni', nationality= 'Indian', team=ck)
+moeen = Player(name= 'Moeen Ali', nationality='English', team=ck)
+jadeja = Player (name= 'Ravindra Jadeja', nationality='Indian', team=csk)
+kohli = Player (name= 'Virat Kohli'.
+nationality='Indian', team=rcb)
+faf = Player (name=' FAF Du Plesis
+, nationality='South African', team=rcb)
+siraj = Player (name= 'Siraj Mohammed', nationality= 'Indian', team=rcb)
+rohit = Player (name= 'Rohit Sharma',
+, nationality='Indian', , team=mi)
