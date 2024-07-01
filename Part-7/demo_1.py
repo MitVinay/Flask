@@ -40,7 +40,8 @@ def about():
 
 @app.route("/contact")
 def contact():
-    if "user_name" not in session:
+    user_name = request.cookies.get("user_name")
+    if user_name is None:
         flash("Login Required")
         """
         Once we login in properly, then we want to come back to the
@@ -49,7 +50,7 @@ def contact():
         """
         return redirect(url_for("login", next=request.url))
     else:
-        flash(f"Hi {session['user_name']}, have a goodday") 
+        flash(f"Hi {user_name}, have a goodday") 
 
     return render_template("contact.html", title = "Contact")
 
@@ -58,15 +59,14 @@ def contact():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        session['user_name'] = form.username.data 
-        flash(f"Successfully loggin in as {session['user_name'].title()}")
-        next_url = request.args.get("next")
-        """
-        If the login page is requested from a About or Contact
-        the url will be stored in the next_url other wise if it is none
-        the it will go back to home page
-        """
-        return redirect(next_url or url_for("home"))
+        user_name = form.username.data
+        response = make_response("")
+        response.set_cookie("user_name", user_name)
+        flash(f"Successfully loggin in as {user_name.title()}")
+        next_url = request.args.get("next") or url_for("home")
+        response.headers["Location"] = next_url
+        response.status_code = 302
+        return response
 
     return render_template("login.html", title = "Login", form=form)
 
